@@ -35,12 +35,15 @@ public class SignUpActivity extends AppCompatActivity {
         signup = (Button) findViewById(R.id.signup_button2);
         database = FirebaseDatabase.getInstance();
         reference = database.getReference().child("Users");
-        user = new User();
+        user = new User(username.getText().toString(),password.getText().toString(), email.getText().toString());
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                registerUser();
+
+                //registering user
+                reference.child(user.getUsername()).setValue(user);
+
                 Toast.makeText(getApplicationContext(),"Registered Successfully",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
                 startActivity(intent);
@@ -49,14 +52,11 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-        public void registerUser()
-        {
-            user.setUsername(username.getText().toString());
-            user.setPassword(password.getText().toString());
-            user.setPassword2(re_typepass.getText().toString());
-            user.setEmail(email.getText().toString());
-            reference.child(user.getUsername()).setValue(user);
-        }
+
+
+
+
+
 
 }
 

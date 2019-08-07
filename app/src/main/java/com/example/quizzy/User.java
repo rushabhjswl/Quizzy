@@ -4,20 +4,20 @@ public class User {
 
     String username;
     String password;
-    String password2;
     String email;
     String usertype;
 
     public User(){
-        this.usertype = "player";
+
     }
 
-    public User(String username, String password, String password2, String email)
+    public User(String username, String password, String email)
     {
         this.username = username;
         this.password = password;
-        this.password2 = password2;
+
         this.email = email;
+        this.usertype = "player";
     }
 
     public String getUsername() {
@@ -36,13 +36,6 @@ public class User {
         this.password = password;
     }
 
-    public String getPassword2() {
-        return password2;
-    }
-
-    public void setPassword2(String password2) {
-        this.password2 = password2;
-    }
 
     public String getEmail() {
         return email;
