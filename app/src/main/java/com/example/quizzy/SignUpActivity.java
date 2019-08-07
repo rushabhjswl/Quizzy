@@ -7,53 +7,124 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    EditText username;
-    EditText password;
-    EditText re_typepass;
-    EditText email;
+    String username, password, email, reTypePassword;
+    EditText edt;
     Button signup;
-    FirebaseDatabase database;
-    DatabaseReference reference;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference reference = database.getReference().child("Users");
     private User user;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        username = (EditText) findViewById(R.id.signup_username);
-        password = (EditText) findViewById(R.id.signup_password);
-        re_typepass = (EditText) findViewById(R.id.signup_password2);
-        email = (EditText) findViewById(R.id.signup_email);
         signup = (Button) findViewById(R.id.signup_button2);
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference().child("Users");
-        user = new User(username.getText().toString(),password.getText().toString(), email.getText().toString());
+
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //registering user
-                reference.child(user.getUsername()).setValue(user);
+               setAllStrings();
+                if(areEntriesValid() == true){
 
-                Toast.makeText(getApplicationContext(),"Registered Successfully",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
-                startActivity(intent);
+
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(!dataSnapshot.child(username).exists()){
+                                //registering user
+                                user = new User(username,password, email);
+                                reference.child(user.getUsername()).setValue(user);
+
+                                Toast.makeText(getApplicationContext(),"Registered Successfully",Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
+                                startActivity(intent);
+                            }
+                            else{
+                                Toast.makeText(getApplicationContext(), "Username already exists", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+
+
+
+
             }
         });
 
     }
 
 
+    //set variables to the edittext entries made by user
+    public void setAllStrings(){
 
+        edt = findViewById(R.id.signup_username);
+        username = edt.getText().toString();
+
+        edt = findViewById(R.id.signup_password);
+        password = edt.getText().toString();
+
+        edt = findViewById(R.id.signup_password2);
+        reTypePassword = edt.getText().toString();
+
+        edt = findViewById(R.id.signup_email);
+        email = edt.getText().toString();
+
+    }
+
+
+    //check is user entries are valid
+    public boolean areEntriesValid(){
+
+        //if any field is empty, return false
+        if(username.equals("") || password.equals("") || reTypePassword.equals("") || email.equals("")){
+            Toast.makeText(getApplicationContext(), "Please Fill all Fields", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
+        //passwords not same
+        else if(!password.equals(reTypePassword)){
+            Toast.makeText(getApplicationContext(), "Enter same password", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        //email format
+        String regex = "^(.+)@(.+)$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        if(!matcher.matches()){
+            Toast.makeText(getApplicationContext(), "Enter Correct Email", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+
+    }
 
 
 
