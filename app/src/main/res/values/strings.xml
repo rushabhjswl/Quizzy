@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Quizzy</string>
+    <string name="category">Choose a category</string>
+
+    <string-array name="category_array">
+        <item>Technology</item>
+        <item>Movies</item>
+        <item>General Knowledge</item>
+        <item>Maths</item>
+    </string-array>
 </resources>
