@@ -6,9 +6,10 @@ public class User {
     String password;
     String password2;
     String email;
+    String usertype;
 
     public User(){
-
+        this.usertype = "player";
     }
 
     public User(String username, String password, String password2, String email)
