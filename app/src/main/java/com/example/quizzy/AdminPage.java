@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,26 +41,31 @@ public class AdminPage extends AppCompatActivity {
         add = new AddQuestion();
        // reference = database.getInstance().getReference().child("Questions");
 
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists())
-                {
-                    id = (dataSnapshot.getChildrenCount());
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 add();
-                reference.child(add.category).child(String.valueOf(id+1)).setValue(add);
+                reference.child(add.category).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        if(dataSnapshot.getChildrenCount()!=0) {
+                            id = (dataSnapshot.getChildrenCount());
+                            id++;
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                reference.child(add.category).child(String.valueOf(id)).setValue(add);
+                Toast.makeText(getApplicationContext(),"data inserted",Toast.LENGTH_LONG).show();
+                id = 0;
             }
+
         });
 
     }
