@@ -55,9 +55,10 @@ public class AdminPage extends AppCompatActivity {
                             id = (dataSnapshot.getChildrenCount());
                             Log.i("Hello","id = "+id);
                             reference.child(add.category).child(String.valueOf(id+1)).setValue(add);
-                            Toast.makeText(getApplicationContext(),"data inserted",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"data inserted successfully",Toast.LENGTH_LONG).show();
                         }else{
                             reference.child(add.category).child(String.valueOf(id+1)).setValue(add);
+                            Toast.makeText(getApplicationContext(),"New data inserted successfully",Toast.LENGTH_LONG).show();
 
                         }
 
