@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,14 +47,20 @@ public class AdminPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 add();
-                reference.child(add.category).addValueEventListener(new ValueEventListener() {
+                reference.child(add.category).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                         if(dataSnapshot.getChildrenCount()!=0) {
                             id = (dataSnapshot.getChildrenCount());
-                            id++;
+                            Log.i("Hello","id = "+id);
+                            reference.child(add.category).child(String.valueOf(id+1)).setValue(add);
+                            Toast.makeText(getApplicationContext(),"data inserted",Toast.LENGTH_LONG).show();
+                        }else{
+                            reference.child(add.category).child(String.valueOf(id+1)).setValue(add);
+
                         }
+
                     }
 
                     @Override
@@ -61,8 +68,6 @@ public class AdminPage extends AppCompatActivity {
 
                     }
                 });
-                reference.child(add.category).child(String.valueOf(id)).setValue(add);
-                Toast.makeText(getApplicationContext(),"data inserted",Toast.LENGTH_LONG).show();
                 id = 0;
             }
 
