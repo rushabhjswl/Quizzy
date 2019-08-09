@@ -14,10 +14,11 @@
         <activity
             android:name=".UserProfile"
             android:label="@string/title_activity_user_profile"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AdminPage" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".ScoresGraph">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

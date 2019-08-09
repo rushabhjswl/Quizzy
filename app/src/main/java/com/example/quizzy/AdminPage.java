@@ -46,35 +46,38 @@ public class AdminPage extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                add();
-                reference.child(add.category).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(valid())
+                {
+                    add();
+                    reference.child(add.category).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        if(dataSnapshot.getChildrenCount()!=0) {
-                            id = (dataSnapshot.getChildrenCount());
-                            Log.i("Hello","id = "+id);
-                            reference.child(add.category).child(String.valueOf(id+1)).setValue(add);
-                            Toast.makeText(getApplicationContext(),"data inserted successfully",Toast.LENGTH_LONG).show();
-                        }else{
-                            reference.child(add.category).child(String.valueOf(id+1)).setValue(add);
-                            Toast.makeText(getApplicationContext(),"New data inserted successfully",Toast.LENGTH_LONG).show();
+                            if (dataSnapshot.getChildrenCount() != 0) {
+                                id = (dataSnapshot.getChildrenCount());
+                                Log.i("Hello", "id = " + id);
+                                reference.child(add.category).child(String.valueOf(id + 1)).setValue(add);
+                                Toast.makeText(getApplicationContext(), "data inserted successfully", Toast.LENGTH_LONG).show();
+                            } else {
+                                reference.child(add.category).child(String.valueOf(id + 1)).setValue(add);
+                                Toast.makeText(getApplicationContext(), "New data inserted successfully", Toast.LENGTH_LONG).show();
+
+                            }
 
                         }
 
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-                id = 0;
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
+                    });
+                    id = 0;
+                }
             }
 
         });
 
     }
+
     public void add()
     {
         add.setQuestion(question.getText().toString());
@@ -84,6 +87,18 @@ public class AdminPage extends AppCompatActivity {
         add.setOption4(option4.getText().toString());
         add.setCorrect_answer(correct_answer.getText().toString());
         add.setCategory(category.getSelectedItem().toString());
+    }
 
+
+    //validation for checking empty fields
+    public boolean valid()
+    {
+        boolean valid = true;
+        if(question.getText().toString().equals("") || option1.getText().toString().equals("") || option2.getText().toString().equals("") || option3.getText().toString().equals("")|| option4.getText().toString().equals("")|| correct_answer.getText().toString().equals(""))
+        {
+            Toast.makeText(getApplicationContext(),"Please enter all the fields",Toast.LENGTH_LONG).show();
+            valid=false;
+        }
+        return valid;
     }
 }
