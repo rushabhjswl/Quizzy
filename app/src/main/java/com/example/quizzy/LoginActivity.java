@@ -34,8 +34,8 @@ public class LoginActivity extends AppCompatActivity {
         login = (Button) findViewById(R.id.login_login_button);
 
         //on clicking signup button, we start the SignUpActivity
-        signup.setOnClickListener(new View.OnClickListener() {
-            @Override
+            signup.setOnClickListener(new View.OnClickListener() {
+                @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this,SignUpActivity.class);
                 startActivity(intent);
