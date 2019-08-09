@@ -30,6 +30,12 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
@@ -124,6 +130,7 @@ public class SignUpActivity extends AppCompatActivity {
         return true;
 
     }
+
 
 
 
