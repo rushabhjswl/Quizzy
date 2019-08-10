@@ -11,28 +11,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LiveQuiz"></activity>
-        <activity
-            android:name=".ChooseCategory"
-            android:noHistory="true"
-            android:label="Choose Category">
-        </activity>
         <activity
             android:name=".UserProfile"
-            android:label="@string/title_activity_user_profile"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="Profile"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity android:name=".LiveQuiz" />
+        <activity
+            android:name=".ChooseCategory"
+            android:label="Choose Category"
+            android:noHistory="true" />
         <activity android:name=".AdminPage" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity"
+        <activity
+            android:name=".SignUpActivity"
             android:label="Sign Up"
-            android:noHistory="true">
-        </activity>
+            android:noHistory="true" />
     </application>
 
 </manifest>
