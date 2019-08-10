@@ -16,7 +16,8 @@
             android:noHistory="true">
         </activity>
         <activity android:name=".LiveQuiz"
-            android:label="Quiz"/>
+            android:label="Quiz"
+            android:noHistory="true"/>
         <activity
             android:name=".ChooseCategory"
             android:label="Choose Category"

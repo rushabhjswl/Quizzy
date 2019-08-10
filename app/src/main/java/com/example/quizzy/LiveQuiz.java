@@ -169,8 +169,10 @@ public class LiveQuiz extends AppCompatActivity implements View.OnClickListener{
                     currScore++;
                 }
 
-                Toast.makeText(getApplicationContext(),"Your Score is: "+ currScore, Toast.LENGTH_LONG).show();
-
+                Intent quizResult = new Intent(LiveQuiz.this, QuizResult.class);
+                quizResult.putExtra("username", username);
+                quizResult.putExtra("currScore", currScore+"");
+                startActivity(quizResult);
 
             }
 
