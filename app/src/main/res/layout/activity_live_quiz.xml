@@ -4,25 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChooseCategory">
+    tools:context=".LiveQuiz">
 
     <TextView
-        android:id="@+id/chooseCategory"
+        android:id="@+id/quizTxtQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
+        android:textStyle="bold"
+        android:textSize="32sp"
+        app:layout_constraintStart_toEndOf="@+id/quizQuestionNo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/quizQuestionNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="64dp"
-        android:layout_marginEnd="32dp"
-        android:text="Choose Category"
         android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
-        android:id="@+id/radioCategoryGroup"
+        android:id="@+id/radioGroupOptions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -30,54 +37,66 @@
         android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chooseCategory">
+        app:layout_constraintTop_toBottomOf="@+id/quizQuestionNo">
 
 
         <RadioButton
-            android:id="@+id/btn_movies"
+            android:id="@+id/quizOption1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
-            android:text="Movies" />
+             />
 
         <RadioButton
-            android:id="@+id/btn_science"
+            android:id="@+id/quizOption2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
-            android:text="Science" />
+             />
 
         <RadioButton
-            android:id="@+id/btn_maths"
+            android:id="@+id/quizOption3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
-            android:text="Maths" />
+             />
 
         <RadioButton
-            android:id="@+id/btn_tech"
+            android:id="@+id/quizOption4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="32dp"
-            android:text="Technology" />
+            />
     </RadioGroup>
 
     <Button
-        android:id="@+id/btnCategoryGo"
+        android:id="@+id/quizBtnNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        android:text="Go"
+        android:text="Save and Next"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioCategoryGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupOptions" />
+
+    <Button
+        android:id="@+id/quizBtnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="Submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupOptions" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

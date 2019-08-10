@@ -7,78 +7,68 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 public class ChooseCategory extends AppCompatActivity {
 
-    RadioButton btn_maths, btn_science, btn_tech, btn_movies;
-    String username;
+    private RadioButton radioCategoryButton;
+    private RadioGroup radioCategoryGroup;
+    private Button btnGo;
+    private String username;
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_category);
 
-        btn_maths = findViewById(R.id.btn_maths);
-        btn_movies = findViewById(R.id.btn_movies);
-        btn_science = findViewById(R.id.btn_science);
-        btn_tech = findViewById(R.id.btn_tech);
-
         //getting username
         Intent userProfile = getIntent();
-        username = userProfile.getStringExtra(username);
+        username = userProfile.getStringExtra("username");
 
 
-        btn_maths.setOnClickListener(new View.OnClickListener() {
+        addListenerOnRadioGroup();
+
+    }
+
+    //adding listener on radio buttons which will choose category
+    public void addListenerOnRadioGroup(){
+
+        radioCategoryGroup = findViewById(R.id.radioCategoryGroup);
+        btnGo = findViewById(R.id.btnCategoryGo);
+
+        btnGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent liveQuiz = new Intent();
-                liveQuiz.putExtra("username", username);
-                liveQuiz.putExtra("category", "Maths");
-                startActivity(liveQuiz);
-                finish();
+                //no category selected
+                if(radioCategoryGroup.getCheckedRadioButtonId() == -1){
+                    Toast.makeText(getApplicationContext(), "Please Select a Quiz Category", Toast.LENGTH_SHORT).show();
+                }
+                //a category is selected, so start the quiz
+                else{
+                    int selectedID = radioCategoryGroup.getCheckedRadioButtonId();
+                    radioCategoryButton = findViewById(selectedID);
+                    String choosenCategory = (String) radioCategoryButton.getText();
 
-            }
-        });
+                    //now we will start quiz with the choosenCategory questions
+                    Intent intent = new Intent(ChooseCategory.this, LiveQuiz.class);
+                    intent.putExtra("category", choosenCategory);
+                    intent.putExtra("username", username);
+                    startActivity(intent);
+                }
 
-        btn_science.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                Intent liveQuiz = new Intent();
-                liveQuiz.putExtra("username", username);
-                liveQuiz.putExtra("category", "Science");
-                startActivity(liveQuiz);
-                finish();
-
-            }
-        });
-
-        btn_tech.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent liveQuiz = new Intent();
-                liveQuiz.putExtra("username", username);
-                liveQuiz.putExtra("category", "Technology");
-                startActivity(liveQuiz);
-                finish();
-
-            }
-        });
-
-        btn_movies.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent liveQuiz = new Intent();
-                liveQuiz.putExtra("username", username);
-                liveQuiz.putExtra("category", "Movies");
-                startActivity(liveQuiz);
-                finish();
 
             }
         });
 
     }
+
 }

@@ -1,6 +1,6 @@
 package com.example.quizzy;
 
-import android.os.Bundle;
+/*import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -98,3 +98,4 @@ public class ScoresGraph extends AppCompatActivity {
 
     }
 }
+*/
