@@ -26,6 +26,7 @@ public class UserProfile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView txtView;
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class UserProfile extends AppCompatActivity
         setTitle("User Profile");
 
         Intent intent = getIntent();
-        final String username = intent.getStringExtra("username");
+        username = intent.getStringExtra("username");
         txtView = findViewById(R.id.usergreeting);
         txtView.setText("Hello " + username);
 
@@ -52,7 +53,7 @@ public class UserProfile extends AppCompatActivity
                 startActivity(chooseCategory);
             }
         });
-        ;
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -100,6 +101,15 @@ public class UserProfile extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
+        if(id == R.id.nav_reset){
+
+            Intent intent = new Intent(UserProfile.this, ChangePassword.class);
+            intent.putExtra("user", username);
+
+            startActivity(intent);
+        }
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

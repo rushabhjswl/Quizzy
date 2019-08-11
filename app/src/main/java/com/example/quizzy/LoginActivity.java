@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                 setAllStrings();
 
                 if(areEntriesValid() == true){
-                    reference.addValueEventListener(new ValueEventListener() {
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -70,11 +70,14 @@ public class LoginActivity extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                                 //we start the UserProfile Activity
-                                else {
+                                else if(username.equals(user.username) && password.equals(user.password)){
                                     Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginActivity.this, UserProfile.class);
                                     intent.putExtra("username", username);
                                     startActivity(intent);
+                                }
+                                else{
+                                    Toast.makeText(getApplicationContext(), "Username or Password Wrong", Toast.LENGTH_SHORT).show();
                                 }
 
 

@@ -38,6 +38,10 @@
             android:name=".SignUpActivity"
             android:label="Sign Up"
             android:noHistory="true"></activity>
+        <activity android:name=".ChangePassword"
+                    android:noHistory="true">
+
+        </activity>
     </application>
 
 </manifest>
