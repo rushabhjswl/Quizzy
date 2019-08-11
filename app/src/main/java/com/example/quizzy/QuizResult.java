@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -18,6 +20,7 @@ public class QuizResult extends AppCompatActivity {
     private TextView txtCurrScore;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref;
+    Button btnRanks, btnProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,22 @@ public class QuizResult extends AppCompatActivity {
         //shwoing score on UI
         txtCurrScore = findViewById(R.id.currScore);
         txtCurrScore.setText(currScore + " / 10");
+
+
+        //adding button listeners
+
+        btnProfile = findViewById(R.id.goToProfile);
+        btnProfile.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+
+                finish();
+
+            }
+        });
+
+
 
         //saving score to database
         ref = database.getReference("Scores/");
@@ -47,11 +66,6 @@ public class QuizResult extends AppCompatActivity {
                 else{
                     ref.child(username).child("1").setValue(currScore);
                 }
-
-
-
-
-
             }
 
             @Override
