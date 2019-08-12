@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Quizzy</string>
     <string name="category">Choose a category</string>
+    <string name="change_passhead"> <u>Change your password here</u></string>
+
 
     <string-array name="category_array">
         <item>Technology</item>
