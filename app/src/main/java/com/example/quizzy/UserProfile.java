@@ -50,7 +50,7 @@ public class UserProfile extends AppCompatActivity
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference reference = database.getReference().child("Scores");
     DatabaseReference reference2;
-    long scores[] = new long[5];
+    long scores[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,12 +103,6 @@ public class UserProfile extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.profile_menu, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -117,10 +111,6 @@ public class UserProfile extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -151,18 +141,23 @@ public class UserProfile extends AppCompatActivity
         reference.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (int i = 1; i <=5; i++) {
+                scores = new long[(int)dataSnapshot.getChildrenCount()];
+                for (int i = 1; i <= (int) dataSnapshot.getChildrenCount(); i++) {
                     String score = dataSnapshot.child(i + "").getValue(String.class);
 
-                    Log.e("Hello", "score " + score);
+                    //Log.e("Hello", "score " + score);
                     scores[i - 1] = Long.parseLong(score);
-                    Log.e("array values" ,scores[i-1]+"");
+
+                }
+
+                for(int i=0; i<scores.length; i++){
+                    Log.e("Value " + (i+1)+": ", scores[i] +"");
                 }
 
                 Cartesian cartesian = AnyChart.column();
                 List<DataEntry> data = new ArrayList<>();
                 int countOfScores = 0;
-                Log.e("array 3" ,scores[3]+"");
+                //Log.e("array 3" ,scores[3]+"");
                 for (int i = scores.length; i > 0; i--) {
                     data.add(new ValueDataEntry("Quiz " + i, scores[i - 1]));
 
@@ -180,14 +175,14 @@ public class UserProfile extends AppCompatActivity
                         .anchor(Anchor.CENTER_BOTTOM)
                         .offsetX(0d)
                         .offsetY(5d)
-                        .format("${%Value}{groupsSeparator: }");
+                        .format("{%Value}{groupsSeparator: }");
 
                 cartesian.animation(true);
-                cartesian.title("Your Scores");
+                cartesian.title("Your Previous 5 Scores");
 
                 cartesian.yScale().minimum(0d);
 
-                cartesian.yAxis(0).labels().format("${%Value}{groupsSeparator: }");
+                cartesian.yAxis(0).labels().format("{%Value}{groupsSeparator: }");
 
                 cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
                 cartesian.interactivity().hoverMode(HoverMode.BY_X);
