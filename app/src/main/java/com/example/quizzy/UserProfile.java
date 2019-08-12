@@ -129,6 +129,15 @@ public class UserProfile extends AppCompatActivity
             startActivity(intent);
         }
 
+
+        if(id == R.id.nav_ranks){
+
+            Intent intent = new Intent(UserProfile.this, RanksActivity.class);
+            intent.putExtra("username", username);
+
+            startActivity(intent);
+        }
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
