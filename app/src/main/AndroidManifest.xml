@@ -11,17 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".QuizResult"
+        <activity android:name=".RanksActivity"></activity>
+        <activity
+            android:name=".QuizResult"
             android:label="Quiz Result"
-            android:noHistory="true">
-        </activity>
-        <activity android:name=".LiveQuiz"
+            android:noHistory="true"></activity>
+        <activity
+            android:name=".LiveQuiz"
             android:label="Quiz"
-            android:noHistory="true"/>
+            android:noHistory="true" />
         <activity
             android:name=".ChooseCategory"
             android:label="Choose Category"
-            android:noHistory="true"></activity>
+            android:noHistory="true" />
         <activity
             android:name=".UserProfile"
             android:label="@string/title_activity_user_profile"
@@ -37,11 +39,10 @@
         <activity
             android:name=".SignUpActivity"
             android:label="Sign Up"
+            android:noHistory="true" />
+        <activity
+            android:name=".ChangePassword"
             android:noHistory="true"></activity>
-        <activity android:name=".ChangePassword"
-                    android:noHistory="true">
-
-        </activity>
     </application>
 
 </manifest>

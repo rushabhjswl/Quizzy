@@ -36,8 +36,8 @@ public class QuizResult extends AppCompatActivity {
         txtCurrScore.setText(currScore + " / 10");
 
 
-        //adding button listeners
 
+        //button to go back to profile activity
         btnProfile = findViewById(R.id.goToProfile);
         btnProfile.setOnClickListener(new View.OnClickListener(){
 
@@ -49,11 +49,23 @@ public class QuizResult extends AppCompatActivity {
             }
         });
 
+        //button to start ranks activity
+        btnRanks = findViewById(R.id.seeRanks);
+        btnRanks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent ranksActivity = new Intent(QuizResult.this, RanksActivity.class);
+                ranksActivity.putExtra("username", username);
+                startActivity(ranksActivity);
+            }
+        });
+
+
 
 
         //saving score to database
         ref = database.getReference("Scores/");
-
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
