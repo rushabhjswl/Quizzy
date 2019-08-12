@@ -19,19 +19,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Random;
+
 public class LiveQuiz extends AppCompatActivity implements View.OnClickListener{
 
     private String username, category;
     private int currScore = 0;
     private Button btnNext, btnSubmit;
-    int randomQuestions[], questionCount;
+    int randomQuestion, questionCount;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref;
     private RadioGroup optionRadioGroup;
     private RadioButton option1, option2, option3, option4, selectedAnswerRadio;
     private TextView txtQuestion, txtQuestionNo;
     private String correctAnswer;
-
+    private Random rand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +58,9 @@ public class LiveQuiz extends AppCompatActivity implements View.OnClickListener{
         username = chooseCategory.getStringExtra("username");
         category = chooseCategory.getStringExtra("category");
 
-        //later on I will write code to generate random numbers for this array
-        randomQuestions = new int[]{1,2,3,4,5,6,7,8,9,10};
+        //For generating random questions.
+        rand = new Random();
+        randomQuestion = rand.nextInt(10) -1;
 
         currScore = 0;
         questionCount = 1;
@@ -97,7 +100,7 @@ public class LiveQuiz extends AppCompatActivity implements View.OnClickListener{
                @Override
                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                   Question question = dataSnapshot.child(""+questionCount).getValue(Question.class);
+                   Question question = dataSnapshot.child(""+randomQuestion).getValue(Question.class);
 
                        initUIElementsToUpdate();
                    //setting values UI elements
