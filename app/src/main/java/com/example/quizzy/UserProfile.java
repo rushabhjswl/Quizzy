@@ -45,8 +45,11 @@ import java.util.List;
 public class UserProfile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private TextView txtView;
+    private TextView txtView, nav_username,nav_email;
+    NavigationView mNavigationView;
+    View mHeaderView;
     String username;
+    String user_email;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference reference = database.getReference().child("Scores");
     DatabaseReference reference2;
@@ -61,8 +64,27 @@ public class UserProfile extends AppCompatActivity
 
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
+        user_email = intent.getStringExtra("email");
         txtView = findViewById(R.id.usergreeting);
         txtView.setText("Hello " + username);
+
+        nav_username = (TextView) (findViewById(R.id.user_username));
+        nav_email = (TextView) findViewById(R.id.user_email);
+
+        // NavigationView
+        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        // NavigationView Header
+        mHeaderView =  mNavigationView.getHeaderView(0);
+
+        // View
+        nav_username = (TextView) mHeaderView.findViewById(R.id.user_username);
+        nav_email = (TextView) mHeaderView.findViewById(R.id.user_email);
+
+        // Set username & email
+        nav_username.setText("Welcome, "+username);
+        nav_email.setText(user_email);
+
 
 
         //drawing chart of last 5 quiz scores
@@ -90,7 +112,7 @@ public class UserProfile extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
+        mNavigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -136,6 +158,11 @@ public class UserProfile extends AppCompatActivity
             intent.putExtra("username", username);
 
             startActivity(intent);
+        }
+
+        if(id == R.id.nav_logout){
+
+            //write proper intent here
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
