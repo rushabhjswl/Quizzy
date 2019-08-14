@@ -1,11 +1,15 @@
 package com.example.quizzy;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 public class User {
 
     String username;
     String password;
     String email;
     String usertype;
+
 
     public User(){
 
@@ -20,11 +24,13 @@ public class User {
     }
 
     public String getUsername() {
+
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
+
     }
 
     public String getPassword() {

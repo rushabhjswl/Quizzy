@@ -162,7 +162,12 @@ public class UserProfile extends AppCompatActivity
 
         if(id == R.id.nav_logout){
 
-            //write proper intent here
+            ManageSession current_user = new ManageSession(UserProfile.this);
+            current_user.remove();
+
+            Intent intent = new Intent(UserProfile.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

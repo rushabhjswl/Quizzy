@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +26,8 @@ public class LoginActivity extends AppCompatActivity {
     String username, password;
     EditText edt;
     private String EXTRA_MESSAGE;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +75,10 @@ public class LoginActivity extends AppCompatActivity {
                                 //we start the UserProfile Activity
                                 else if(username.equals(user.username) && password.equals(user.password)){
                                     Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+
+                                    ManageSession current_user = new ManageSession(LoginActivity.this);
+                                    current_user.setUsername(username);
+
                                     Intent intent = new Intent(LoginActivity.this, UserProfile.class);
                                     intent.putExtra("username", username);
                                     intent.putExtra("email", user.email);
