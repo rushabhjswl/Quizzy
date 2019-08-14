@@ -44,6 +44,8 @@ public class QuizResult extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
+
                 finish();
 
             }

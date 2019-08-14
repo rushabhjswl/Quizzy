@@ -1,8 +1,10 @@
 package com.example.quizzy;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,10 +46,6 @@ public class LiveQuiz extends AppCompatActivity implements View.OnClickListener{
         initAllVars();
 
         fetchQuestion();
-
-
-
-
 
     }
 
@@ -180,10 +178,28 @@ public class LiveQuiz extends AppCompatActivity implements View.OnClickListener{
             }
 
 
-
-
-
         }
 
+    }
+
+    public void onBackPressed()
+    {
+        new AlertDialog.Builder(this)
+                .setTitle("Logout")
+                .setMessage("If you get back,all your progress will be lost?\nWould you like to continue")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(LiveQuiz.this,UserProfile.class);
+                        ManageSession session = new ManageSession(LiveQuiz.this);
+                        session.remove();
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .show();
     }
 }

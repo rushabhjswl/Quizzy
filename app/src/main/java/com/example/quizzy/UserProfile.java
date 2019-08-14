@@ -54,6 +54,7 @@ public class UserProfile extends AppCompatActivity
     DatabaseReference reference = database.getReference().child("Scores");
     DatabaseReference reference2;
     long scores[];
+    int final_score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +85,6 @@ public class UserProfile extends AppCompatActivity
         // Set username & email
         nav_username.setText("Welcome, "+username);
         nav_email.setText(user_email);
-
 
 
         //drawing chart of last 5 quiz scores
