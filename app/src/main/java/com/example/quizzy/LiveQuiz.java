@@ -207,7 +207,7 @@ public class LiveQuiz extends AppCompatActivity implements View.OnClickListener{
     public void onBackPressed()
     {
         new AlertDialog.Builder(this)
-                .setTitle("Logout")
+                .setTitle("Quit Quiz")
                 .setMessage("If you get back,all your progress will be lost?\nWould you like to continue")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

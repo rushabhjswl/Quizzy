@@ -23,10 +23,11 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             public void run() {
 
-                if(!current_user.getUsername().equals(""))
+                if(!current_user.getUsername().equals("") || !current_user.getEmail().equals(""))
                 {
                     Intent intent = new Intent(SplashActivity.this,UserProfile.class);
                     intent.putExtra("username",current_user.getUsername());
+                    intent.putExtra("email",current_user.getEmail());
                     startActivity(intent);
                     finish();
                 }

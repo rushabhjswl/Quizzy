@@ -86,6 +86,8 @@ public class UserProfile extends AppCompatActivity
         nav_username.setText("Welcome, "+username);
         nav_email.setText(user_email);
 
+        ManageSession session = new ManageSession(UserProfile.this);
+        session.setEmail(user_email);
 
         //drawing chart of last 5 quiz scores
         drawChartOfPreviousScores();

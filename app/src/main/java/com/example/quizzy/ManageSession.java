@@ -7,6 +7,18 @@ public class ManageSession {
 
     Context context;
     String username;
+
+    public String getEmail() {
+        email = preferences.getString("email","");
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+        preferences.edit().putString("email",email).commit();
+    }
+
+    String email;
     SharedPreferences preferences;
 
     public String getUsername() {
