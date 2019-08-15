@@ -177,7 +177,7 @@ public class UserProfile extends AppCompatActivity
 
     public void drawChartOfPreviousScores(){
         final AnyChartView anyChartView = findViewById(R.id.any_chart_view);
-        //anyChartView.setProgressBar(findViewById(R.id.progress_bar));
+
 
         reference.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -186,13 +186,13 @@ public class UserProfile extends AppCompatActivity
                 for (int i = 1; i <= (int) dataSnapshot.getChildrenCount(); i++) {
                     String score = dataSnapshot.child(i + "").getValue(String.class);
 
-                    //Log.e("Hello", "score " + score);
+
                     scores[i - 1] = Long.parseLong(score);
 
                 }
 
                 for(int i=0; i<scores.length; i++){
-                    Log.e("Value " + (i+1)+": ", scores[i] +"");
+
                 }
 
                 Cartesian cartesian = AnyChart.column();

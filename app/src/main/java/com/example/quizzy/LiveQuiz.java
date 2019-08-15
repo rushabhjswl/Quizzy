@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -21,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class LiveQuiz extends AppCompatActivity implements View.OnClickListener{
@@ -36,6 +39,7 @@ public class LiveQuiz extends AppCompatActivity implements View.OnClickListener{
     private TextView txtQuestion, txtQuestionNo;
     private String correctAnswer;
     private Random rand;
+    private ArrayList<Integer> randomQs = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,9 @@ public class LiveQuiz extends AppCompatActivity implements View.OnClickListener{
 
         //method call to initiate all variables needed in the activity
         initAllVars();
+
+        //making an arraylist of random numbers
+        generateRandomQuestion();
 
         fetchQuestion();
 
@@ -58,10 +65,10 @@ public class LiveQuiz extends AppCompatActivity implements View.OnClickListener{
 
         //For generating random questions.
         rand = new Random();
-        randomQuestion = rand.nextInt(10) -1;
+
 
         currScore = 0;
-        questionCount = 1;
+        questionCount = 0;
 
         btnNext = findViewById(R.id.quizBtnNext);
         btnNext.setOnClickListener(this);
@@ -90,6 +97,16 @@ public class LiveQuiz extends AppCompatActivity implements View.OnClickListener{
     }
 
 
+    public void generateRandomQuestion(){
+
+       for(int i=0; i<10; i++){
+           randomQs.add(i ,new Integer(i+1));
+       }
+        Collections.shuffle(randomQs);
+
+    }
+
+
     public void fetchQuestion(){
 
 
@@ -98,11 +115,16 @@ public class LiveQuiz extends AppCompatActivity implements View.OnClickListener{
                @Override
                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+
+                   randomQuestion = randomQs.get(questionCount);
+
+
+                   Log.d("Random ", randomQuestion+"");
                    Question question = dataSnapshot.child(""+randomQuestion).getValue(Question.class);
 
                        initUIElementsToUpdate();
                    //setting values UI elements
-                   txtQuestionNo.setText(questionCount+". ");
+                   txtQuestionNo.setText((questionCount+1)+". ");
                    txtQuestion.setText(question.getQuestion());
                    option1.setText(question.getOption1());
                    option2.setText(question.getOption2());
@@ -151,7 +173,7 @@ public class LiveQuiz extends AppCompatActivity implements View.OnClickListener{
 
                 }
                 //checking if its the last question
-                if(questionCount == 10){
+                if(questionCount == 9){
                     btnNext.setOnClickListener(null);
                     btnNext.setVisibility(View.INVISIBLE);
                     btnSubmit.setVisibility(View.VISIBLE);
